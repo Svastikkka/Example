@@ -8,11 +8,11 @@ services:
       args:
         INFLUXDB_TAG: ${INFLUXDB_TAG}
     image: "influxdb"
-    volumes:
+    # volumes:
       # Mount for influxdb data directory
-      - ./influxdb/data:/var/lib/influxdb
+      # - ./influxdb/data:/var/lib/influxdb
       # Mount for influxdb configuration
-      - ./influxdb/config/:/etc/influxdb/
+      # - ./influxdb/config/:/etc/influxdb/
     ports:
       # The API for InfluxDB is served on port 8086
       - "8086:8086"
@@ -51,7 +51,7 @@ services:
     image: "kapacitor"
     volumes:
       # Mount for kapacitor data directory
-      - ./kapacitor/data/:/var/lib/kapacitor
+      # - ./kapacitor/data/:/var/lib/kapacitor
       # Mount for kapacitor configuration
       - ./kapacitor/config/:/etc/kapacitor/
     # Kapacitor requires network access to Influxdb
@@ -59,7 +59,7 @@ services:
       - influxdb
     ports:
       # The API for Kapacitor is served on port 9092
-      - "9092:9092"
+      - "9093:9092"
 
   chronograf:
     # Full tag list: https://hub.docker.com/r/library/chronograf/tags/
@@ -71,9 +71,9 @@ services:
     image: "chrono_config"
     environment:
       RESOURCES_PATH: "/usr/share/chronograf/resources"
-    volumes:
+    # volumes:
       # Mount for chronograf database
-      - ./chronograf/data/:/var/lib/chronograf/
+      # - ./chronograf/data/:/var/lib/chronograf/
     links:
       # Chronograf requires network access to InfluxDB and Kapacitor
       - influxdb
